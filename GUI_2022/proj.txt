@@ -1,0 +1,3 @@
+coletar dados e armazenar na lista, a cada 1 minuto ou 500 milisegundos, descarregar vetor em arquivo csv e limpar memória.
+a cada 1 minuto ou 500 milisegundos, buscar dados no arquivo csv
+apenas muda a frequencia de amostragem dos graficos.
