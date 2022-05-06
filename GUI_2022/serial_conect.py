@@ -3,6 +3,7 @@ import serial
 import matplotlib.pyplot as plt
 import time
 import pandas as pd
+import Txt from utils.Path_txt
 
 class ConectionS:
     def __init__(self, altitudeC=[], temperaturaC=[], voltageC=[], gpsLatitudeC=[], gpsLongitudeC=[], gpsAlturaC=[], altitudeP= [], temperaturaP=[]):
@@ -139,44 +140,47 @@ class ConectionS:
                 print('Error')
 
     def Captura(self, MSP):
-        arquivoAltitudeC = open('datasets/txtTransicao/altitudeC.txt', 'w')
-        arquivoTemperaturaC = open('datasets/txtTransicao/temperaturaC.txt', 'w')
-        while MSP.bytesize > 0:
-            MSP.flushOutput()
-            MSP.flushInput()
+        arquivoAltitudeC = open(str(Txt.altitudeC), 'w')
+        arquivoTemperaturaC = open(str(Txt.temperaturaC), 'w')
+        try:
+            while MSP.bytesize > 0:
+                MSP.flushOutput()
+                MSP.flushInput()
 
-            data = MSP.readline().decode()
-            dataSplit= data.split(',')
-            print(dataSplit)
-            if len(dataSplit) > 1:
-                #filterVector(dataSplit)
-                if dataSplit[3] == "c":
-                    self.setAltitudeC(dataSplit[0])
-                    arquivoAltitudeC.write(str(self.getAltitudeC()))
-                    self.setTemperaturaC(dataSplit[1])
-                    arquivoTemperaturaC.write(self.getTemperaturaC())
-                #     __init__.voltageC.append(dataSplit[2])
-                #     __init__.gpsLatitudeC.append(dataSplit[4])
-                #     __init__.gpsLongitudeC.append(dataSplit[5])
-                #     __init__.gpsAlturaC.append(dataSplit[6])
+                data = MSP.readline().decode()
+                dataSplit= data.split(',')
+                print(dataSplit)
+                if len(dataSplit) > 1:
+                    #filterVector(dataSplit)
+                    if dataSplit[3] == "c":
+                        self.setAltitudeC(dataSplit[0])
+                        self.setTemperaturaC(dataSplit[1])
+                    #     __init__.voltageC.append(dataSplit[2])
+                    #     __init__.gpsLatitudeC.append(dataSplit[4])
+                    #     __init__.gpsLongitudeC.append(dataSplit[5])
+                    #     __init__.gpsAlturaC.append(dataSplit[6])
 
-                # elif dataSplit[3] == "t":
-                #     __init__.altitudeP.append(dataSplit[7])
-                #     __init__.temperaturaP.append(dataSplit[8])
-                #     print("vetor temperatura paylod ", __init__.altitudeC)
-                #     __init__.voltageP.append(dataSplit[9])
-                #     __init__.giroscopioR.append(dataSplit[10])
-                #     __init__.giroscopioP.append(dataSplit[11])
-                #     __init__.giroscopioY.append(dataSplit[12])
-                #     __init__.acelerometroR.append(dataSplit[13])
-                #     __init__.acelerometroP.append(dataSplit[14])
-                #     __init__.acelerometroY.append(dataSplit[15])
-                #     __init__.magnetometroR.append(dataSplit[16])
-                #     __init__.magnetometroP.append(dataSplit[17])
-                #     __init__.magnetometroY.append(dataSplit[18])
-                #     print(dataSplit[18])
-        arquivoAltitudeC.close()
-        arquivoTemperaturaC.close()
+                    # elif dataSplit[3] == "t":
+                    #     __init__.altitudeP.append(dataSplit[7])
+                    #     __init__.temperaturaP.append(dataSplit[8])
+                    #     print("vetor temperatura paylod ", __init__.altitudeC)
+                    #     __init__.voltageP.append(dataSplit[9])
+                    #     __init__.giroscopioR.append(dataSplit[10])
+                    #     __init__.giroscopioP.append(dataSplit[11])
+                    #     __init__.giroscopioY.append(dataSplit[12])
+                    #     __init__.acelerometroR.append(dataSplit[13])
+                    #     __init__.acelerometroP.append(dataSplit[14])
+                    #     __init__.acelerometroY.append(dataSplit[15])
+                    #     __init__.magnetometroR.append(dataSplit[16])
+                    #     __init__.magnetometroP.append(dataSplit[17])
+                    #     __init__.magnetometroY.append(dataSplit[18])
+                    #     print(dataSplit[18])
+        finally:
+            MSP.close()
+            arquivoAltitudeC.write(str(self.getAltitudeC()))
+            arquivoTemperaturaC.write(str(self.getTemperaturaC()))
+            arquivoAltitudeC.close()
+            arquivoTemperaturaC.close()
 
 def segundo():
     time.sleep(1)
