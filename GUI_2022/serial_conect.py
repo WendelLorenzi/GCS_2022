@@ -6,65 +6,45 @@ import pandas as pd
 import Txt from utils.Path_txt
 
 class ConectionS:
-    def __init__(self, altitudeC=[], temperaturaC=[], voltageC=[], gpsLatitudeC=[], gpsLongitudeC=[], gpsAlturaC=[], altitudeP= [], temperaturaP=[]):
-        self.__altitudeC= altitudeC
-        self.__temperaturaC= temperaturaC
-        self.__voltageC= voltageC
-        self.__gpsLatitudeC= gpsLatitudeC
-        self.__gpsLongitudeC= gpsLongitudeC
-        self.__gpsAlturaC= gpsAlturaC
-        self.__altitudeP= altitudeP
-        self.__temperaturaP= temperaturaP
-    
-    def setAltitudeC(self, altitudeC):
-        self.__altitudeC.append(altitudeC)
-    
-    def setTemperaturaC(self, temperaturaC):
-        self.__temperaturaC.append(temperaturaC)
-    
-    def setVoltageC(self, voltageC):
-        self.__voltageC.append(voltageC)
-    
-    def setGpsLatitudeC(self, gpsLatitudeC):
-        self.__gpsLatitudeC.append(gpsLatitudeC)
-    
-    def setGpsLongitudeC(self, gpsLongitudeC):
-        self.__gpsLongitudeC.append(gpsLongitudeC)
-    
-    def setGpsAlturaC(self, gpsAlturaC):
-        self.__gpsAlturaC.append(gpsAlturaC)
-    
-    def setAltitudeP(self, altitudeP):
-        self.__altitudeP.append(altitudeP)
-    
-    def setTemperaturaP(self, temperaturaP):
-        self.__temperaturaP.append(temperaturaP)
-    
-    def getAltitudeC(self):
-        return self.__altitudeC
-    
-    def getTemperaturaC(self):
-        return self.__temperaturaC
-    
-    def getVoltageC(self):
-        return self.__voltageC
-    
-    def getGpsLatitudeC(self):
-        return self.__gpsLatitudeC
-    
-    def getGpsLongitudeC(self):
-        return self.__gpsLongitudeC
-    
-    def getGpsAlturaC(self):
-        return self.__gpsAlturaC
-    
-    def getAltitudeP(self):
-        return self.__altitudeP
-    
-    def getTemperaturaP(self, temperaturaP):
-        return self.__temperaturaP
-    
-    
+    def __init__(self, altitudeC=[],
+                 temperaturaC=[],
+                 voltageC=[],
+                 gpsLatitudeC=[],
+                 gpsLongitudeC=[],
+                 gpsAlturaC=[],
+                 altitudeP= [],
+                 temperaturaP=[],
+                 voltageP=[],
+                 giroscopioR=[],
+                 giroscopioP=[],
+                 giroscopioY=[],
+                 acelerometroR=[],
+                 acelerometroP=[],
+                 acelerometroY=[],
+                 magnetometroR=[],
+                 magnetometroP=[],
+                 magnetometroY=[]
+                 ):
+                    self.altitudeC= altitudeC
+                    self.temperaturaC= temperaturaC
+                    self.voltageC= voltageC
+                    self.gpsLatitudeC= gpsLatitudeC
+                    self.gpsLongitudeC= gpsLongitudeC
+                    self.gpsAlturaC= gpsAlturaC
+                    self.altitudeP= altitudeP
+                    self.temperaturaP= temperaturaP
+                    self.voltageP= voltageP
+                    self.giroscopioR= giroscopioR
+                    self.giroscopioP= giroscopioP
+                    self.giroscopioY= giroscopioY
+                    self.acelerometroR= acelerometroR
+                    self.acelerometroP= acelerometroP
+                    self.acelerometroY= acelerometroY
+                    self.magnetometroR= magnetometroR
+                    self.magnetometroP= magnetometroP
+                    self.magnetometroY= magnetometroY
+
+    MSP = serial.Serial('/dev/ttyACM0', 9600, timeout=3)
         
     # def filterVector(vetor):
     #     cont=0
@@ -97,47 +77,52 @@ class ConectionS:
                 'magnetometroY'])
 
     def carregaDataset(
-        altitudeC):
-        # temperaturaC,
-        # voltageC,
-        # gpsLatitudeC,
-        # gpsLongitudeC,
-        # gpsAlturaC,
-        # altitudeP,
-        # temperaturaP,
-        # voltageP,
-        # giroscopioR,
-        # giroscopioP,
-        # giroscopioY,
-        # acelerometroR,
-        # acelerometroP,
-        # acelerometroY,
-        # magnetometroR,
-        # magnetometroP,
-        # magnetometroY
+        altitudeC,
+        temperaturaC,
+        voltageC,
+        gpsLatitudeC,
+        gpsLongitudeC,
+        gpsAlturaC,
+        altitudeP,
+        temperaturaP,
+        voltageP,
+        giroscopioR,
+        giroscopioP,
+        giroscopioY,
+        acelerometroR,
+        acelerometroP,
+        acelerometroY,
+        magnetometroR,
+        magnetometroP,
+        magnetometroY
+        ):
 
             df= pd.read_csv('/home/wendel/Área de Trabalho/LtSat/GCS_2022/GUI_2022/datasets/transicao.csv', skiprows=1, sep=',', encoding="utf-8")
             if (df):
                 df['altitudeC']= altitudeC
-                # df['temperaturaC']= temperaturaC
-                # df['voltageC']= voltageC
-                # df['gpsLatitudeC']= gpsLatitudeC
-                # df['gpsLongitudeC']= gpsLongitudeC
-                # df['gpsAlturaC']= gpsAlturaC
-                # df['altitudeP']= altitudeP
-                # df['temperaturaP']= temperaturaP
-                # df['voltageP']= voltageP
-                # df['giroscopioR']= giroscopioR
-                # df['giroscopioP']= giroscopioP
-                # df['giroscopioY']= giroscopioY
-                # df['acelerometroR']= acelerometroR
-                # df['acelerometroP']= acelerometroP
-                # df['acelerometroY']= acelerometroY
-                # df['magnetometroR']= magnetometroR
-                # df['magnetometroP']= magnetometroP
-                # df['magnetometroY']= magnetometroY
+                df['temperaturaC']= temperaturaC
+                df['voltageC']= voltageC
+                df['gpsLatitudeC']= gpsLatitudeC
+                df['gpsLongitudeC']= gpsLongitudeC
+                df['gpsAlturaC']= gpsAlturaC
+                df['altitudeP']= altitudeP
+                df['temperaturaP']= temperaturaP
+                df['voltageP']= voltageP
+                df['giroscopioR']= giroscopioR
+                df['giroscopioP']= giroscopioP
+                df['giroscopioY']= giroscopioY
+                df['acelerometroR']= acelerometroR
+                df['acelerometroP']= acelerometroP
+                df['acelerometroY']= acelerometroY
+                df['magnetometroR']= magnetometroR
+                df['magnetometroP']= magnetometroP
+                df['magnetometroY']= magnetometroY
             else:
                 print('Error')
+    
+    while MSP.bytesize > 0:
+        MSP.flushOutput()
+        MSP.flushInput()
 
     def Captura(self, MSP):
         arquivoAltitudeC = open(str(Txt.altitudeC), 'w')
@@ -187,37 +172,34 @@ def segundo():
     return 1
     
 if __name__ == '__main__':
-    conetion= ConectionS()
-    MSP= serial.Serial('/dev/ttyACM0', 9600, timeout=3)
-    while 1:
-        conetion.Captura(MSP)
-    # #a cada 5 segundo o dataset de transição é carregado
-    # cont= 0
-    # tempo= segundo()
-    # cont= tempo + cont
-    # print(cont)
-    # if((cont % 5) == 0):
-    #     print('altitude',  ConectionS.altitudeC)
-    #     ConectionS.carregaDataset(
-    #         ConectionS.altitudeC,
-    #         ConectionS.temperaturaC,
-    #         ConectionS.voltageC,
-    #         ConectionS.gpsLatitudeC,
-    #         ConectionS.gpsLongitudeC,
-    #         ConectionS.gpsAlturaC,
-    #         ConectionS.altitudeP,
-    #         ConectionS.temperaturaP,
-    #         ConectionS.voltageP,
-    #         ConectionS.giroscopioR,
-    #         ConectionS.giroscopioP,
-    #         ConectionS.giroscopioY,
-    #         ConectionS.acelerometroR,
-    #         ConectionS.acelerometroP,
-    #         ConectionS.acelerometroY,
-    #         ConectionS.magnetometroR,
-    #         ConectionS.magnetometroP,
-    #         ConectionS.magnetometroY
-    #         )
+    ConectionS()
+    #a cada 5 segundo o dataset de transição é carregado
+    cont= 0
+    tempo= segundo()
+    cont= tempo + cont
+    print(cont)
+    if((cont % 5) == 0):
+        print('altitude',  ConectionS.altitudeC)
+        ConectionS.carregaDataset(
+            ConectionS.altitudeC,
+            ConectionS.temperaturaC,
+            ConectionS.voltageC,
+            ConectionS.gpsLatitudeC,
+            ConectionS.gpsLongitudeC,
+            ConectionS.gpsAlturaC,
+            ConectionS.altitudeP,
+            ConectionS.temperaturaP,
+            ConectionS.voltageP,
+            ConectionS.giroscopioR,
+            ConectionS.giroscopioP,
+            ConectionS.giroscopioY,
+            ConectionS.acelerometroR,
+            ConectionS.acelerometroP,
+            ConectionS.acelerometroY,
+            ConectionS.magnetometroR,
+            ConectionS.magnetometroP,
+            ConectionS.magnetometroY
+            )
 
         
             
