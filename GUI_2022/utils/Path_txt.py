@@ -1,7 +1,10 @@
- # -*- coding: utf-8 -*-
- 
- from enum import Enum
+# -*- coding: utf-8 -*-
 
- class Txt(Enum):
-     altitudeC= 'datasets/txtTransicao/altitudeC.txt'
-     temperaturaC= 'datasets/txtTransicao/temperaturaC.txt'
+import enum
+
+
+class Txt(enum.Enum):
+    ALTITUDEC = 'GUI_2022/datasets/txtTransicao/altitudeC.txt'
+    TEMPERATURAC = 'GUI_2022/datasets/txtTransicao/temperaturaC.txt'
+    VOLTAGEC= 'GUI_2022/datasets/txtTransicao/VoltageC.txt'
+    
