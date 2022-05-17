@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+from distutils.log import error
 import serial
-from Path_txt import Txt
+from utils.pathArquivos import File
 from conection import ConectionS
 
 
 class serialC:  
         def Captura(self, ConectionS, porta):
             MSP = serial.Serial(str(porta), 9600, timeout=3)
-            arquivoAltitudeC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.csv', 'w')
+            arquivoAltitudeC = open(File.ALTITUDEC, 'w')
             arquivoTemperaturaC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/temperaturaC.csv', 'w')
             arquivoVoltageC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/VoltageC.csv', 'w')
             arquivoGpsLatitudeC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/gpsLatitudeC.csv', 'w')
@@ -55,6 +56,8 @@ class serialC:
                             ConectionS.setMagnetometroR(dataSplit[16])
                             ConectionS.setMagnetometroP(dataSplit[17])
                             ConectionS.setMagnetometroY(dataSplit[18])
+            except:
+                print(error)
             finally:
                 MSP.close()
                 arquivoAltitudeC.write(str(ConectionS.getAltitudeC()))

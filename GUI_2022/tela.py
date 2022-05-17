@@ -4,7 +4,7 @@ from tkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 #from drawnow import *
-import pandas as pd
+from src.dataframes.index import dataframe
 
 class Tela:
     def __init__(self):
@@ -95,7 +95,7 @@ class Tela:
         figura= plt.figure(figsize= (17,10), dpi=60)
         ax= figura.subplots(4, 2)
         #Temperatura
-        ax[0, 0].plot(self.temperaturaC, 'r', label= 'Container') #row= 0 col= 0 -> Container
+        ax[0, 0].plot(dataframe.getTemperaturaCdf(), 'r', label= 'Container') #row= 0 col= 0 -> Container
         ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
         ax[0, 0].set_title('Temperature')
         ax[0, 0].set_ylabel('Degrees (ºC)')
