@@ -5,26 +5,26 @@ from conection import ConectionS
 
 
 class serialC:  
-        def Captura(self, ConectionS):
-            MSP = serial.Serial('/dev/ttyACM0', 9600, timeout=3)
-            arquivoAltitudeC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.txt', 'w')
-            arquivoTemperaturaC = open(str(Txt.TEMPERATURAC), 'w')
-            arquivoVoltageC= open(str(Txt.VOLTAGEC), 'w')
-            arquivoGpsLatitudeC= open(str(Txt.GPSLATITUDE), 'w')
-            arquivoGpsLongitudeC= open(str(Txt.GPSLONGITUDE), 'w')
-            arquivoGpsAlturaC= open(str(Txt.GPSALTURAC), 'w')
-            arquivoAltitudeP= open(str(Txt.ALTITUDEP), 'w')
-            arquivoTemperaturaP= open(str(Txt.TEMPERATURAP), 'w')
-            arquivosetVoltageP= open(str(Txt.VOLTAGEP), 'w')
-            arquivoGiroscopioR= open(str(Txt.GIROSCOPIOR), 'w')
-            arquivoGiroscopioP= open(str(Txt.GIROSCOPIOP), 'w')
-            arquivoGiroscopioY= open(str(Txt.GIROSCOPIOY), 'w')
-            arquivoAcelerometroR= open(str(Txt.ACELEROMETROR), 'w')
-            arquivoAcelerometroP= open(str(Txt.ACELEROMETROP), 'w')
-            arquivoAcelerometroY= open(str(Txt.ACELEROMETROY),'w')
-            arquivoMagnetometroR= open(str(Txt.MAGNETOMETROR),'w')
-            arquivoMagnetometroP= open(str(Txt.MAGNETOMETROP),'w')
-            arquivoMagnetometroY= open(str(Txt.MAGNETOMETROY),'w')
+        def Captura(self, ConectionS, porta):
+            MSP = serial.Serial(str(porta), 9600, timeout=3)
+            arquivoAltitudeC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.csv', 'w')
+            arquivoTemperaturaC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/temperaturaC.csv', 'w')
+            arquivoVoltageC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/VoltageC.csv', 'w')
+            arquivoGpsLatitudeC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/gpsLatitudeC.csv', 'w')
+            arquivoGpsLongitudeC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/gpsLongitudeC.csv', 'w')
+            arquivoGpsAlturaC= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/GpsAlturaC.csv', 'w')
+            arquivoAltitudeP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/AltitudeP.csv', 'w')
+            arquivoTemperaturaP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/TemperaturaP.csv', 'w')
+            arquivosetVoltageP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/VoltageP.csv', 'w')
+            arquivoGiroscopioR= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/GiroscopioR.csv', 'w')
+            arquivoGiroscopioP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/GiroscopioP.csv', 'w')
+            arquivoGiroscopioY= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/GiroscopioY.csv', 'w')
+            arquivoAcelerometroR= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/AcelerometroR.csv', 'w')
+            arquivoAcelerometroP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/AcelerometroP.csv', 'w')
+            arquivoAcelerometroY= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/AcelerometroY.csv','w')
+            arquivoMagnetometroR= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/MagnetometroR.csv','w')
+            arquivoMagnetometroP= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/MagnetometroP.csv','w')
+            arquivoMagnetometroY= open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/MagnetometroY.csv','w')
             try:
                 while MSP.bytesize > 0:
                     MSP.flushOutput()
@@ -36,7 +36,7 @@ class serialC:
                     if len(dataSplit) > 1:
                         #filterVector(dataSplit)
                         if (dataSplit[3] == "c"):
-                            ConectionS.setAltitudeC(dataSplit[1])
+                            ConectionS.setAltitudeC(dataSplit[0])
                             ConectionS.setTemperaturaC(dataSplit[1])
                             ConectionS.setVoltageC(dataSplit[2])
                             ConectionS.setGpsLatitudeC(dataSplit[4])
@@ -60,7 +60,7 @@ class serialC:
                 arquivoAltitudeC.write(str(ConectionS.getAltitudeC()))
                 arquivoTemperaturaC.write(str(ConectionS.getTemperaturaC()))
                 arquivoVoltageC.write(str(ConectionS.getVoltageC()))
-                arquivoGpsLatitudeC.write(str(ConectionS.getGpsLatitude()))
+                arquivoGpsLatitudeC.write(str(ConectionS.getGpsLatitudeC()))
                 arquivoGpsLongitudeC.write(str(ConectionS.getGpsLongitudeC()))
                 arquivoGpsAlturaC.write(str(ConectionS.getGpsAlturaC()))
                 arquivoAltitudeP.write(str(ConectionS.getAltitudeP()))
@@ -92,16 +92,6 @@ class serialC:
                 arquivoMagnetometroR.close()
                 arquivoMagnetometroP.close()
                 arquivoMagnetometroY.close()
-
-        
-    # def filterVector(vetor):
-    #     cont=0
-    #     for(i in vetor):
-    #         cont= cont + 1
-    #         if(i == ''):
-    #             #se a posição estiver vazia a mesma será ocupada pelo valor da posição anterior
-    #             vetor[cont]= vetor[cont - 1]
-    #     return vetor
 
 #     def drop_database(df):
 #             df.drop(columns=[
@@ -167,19 +157,12 @@ class serialC:
 #                 df['magnetometroY']= magnetometroY
 #             else:
 #                 print('Error')
-                
-                
-#     def Captura(self, MSP): 
-#         while MSP.bytesize > 0:
-#             MSP.flushOutput()
-#             MSP.flushInput()
 
 # def segundo():
 #     time.sleep(1)
 #     return 1
     
 if __name__ == '__main__':
-    MSP = serial.Serial('/dev/ttyACM0', 9600, timeout=3)
     A= serialC()
-    A.Captura(ConectionS())
+    A.Captura(ConectionS(), '/dev/ttyACM0')
     #print(serialC.getAltitudeC())

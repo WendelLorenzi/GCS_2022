@@ -1,10 +1,11 @@
-int cont, triguer;
+int cont=0, triguer;
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
+  cont++;
   int randNumber1 = random(300);
   int randNumber2= random(300);
   int randNumber3= random(300);

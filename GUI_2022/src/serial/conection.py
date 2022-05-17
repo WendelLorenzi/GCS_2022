@@ -106,7 +106,7 @@ class ConectionS:
         return self.__giroscopioR
 
     def getGiroscopioP(self):
-        return self.__giroscopio
+        return self.__giroscopioP
     
     def getGiroscopioY(self):
         return self.__giroscopioY

@@ -4,10 +4,7 @@ from tkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 #from drawnow import *
-import time
 import pandas as pd
-
-from serial_conect import segundo
 
 class Tela:
     def __init__(self):
@@ -93,30 +90,6 @@ class Tela:
         self.ContainerPlot.place(relx=0.18, rely=0.1, relheight=0.88, relwidth=0.81)
         self.ContainerPlot.configure(width=1000)
         self.ContainerPlot.configure(background='#696969')
-
-        #capturando os dados do csv de transição
-        tempo= segundo()
-        cont= tempo + cont
-        df= pd.read_csv('/datasets/transicao.csv')
-        if((cont % 5) == 0):
-            self.temperaturaC.append(df['temperaturaC'])
-            self.temperaturaP.append(df['temperaturaP'])
-            self.altitudeC.append(df['altitudeC'])
-            self.altitudeP.append(df['altitudeP'])
-            self.voltageC.append(df['voltageC'])
-            self.voltageP.append(df['voltageP'])
-            self.gpsLatitudeC.append(df['gpsLatitudeC'])
-            self.gpsLongitudeC.append(df['gpsLongitudeC'])
-            self.gpsAlturaC.append(df['gpsAlturaC'])
-            self.giroscopioP.append(df['giroscopioP'])
-            self.giroscopioY.append(df['giroscopioY'])
-            self.giroscopioR.append(df['giroscopioR'])
-            self.acelerometroP.append(df['acelerometroP'])
-            self.acelerometroY.append(df['acelerometroY'])
-            self.acelerometroR.append(df['acelerometroR'])
-            self.magnetometroP.append(df['magnetometroP'])
-            self.magnetometroY.append(df['magnetometroY'])
-            self.magnetometroR.append(df['magnetometroR'])
 
         #Criando a figure
         figura= plt.figure(figsize= (17,10), dpi=60)
