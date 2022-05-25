@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from src.dataframes.index import dataframe
 
 class Tela:
-    def __init__(self):
+    def renderTela(self, dataframe):
         #Construção da tela começa aqui
         self.containerMaster= Tk()
         self.containerMaster.geometry("1200x800")
@@ -95,31 +95,31 @@ class Tela:
         figura= plt.figure(figsize= (17,10), dpi=60)
         ax= figura.subplots(4, 2)
         #Temperatura
-        ax[0, 0].plot(dataframe.getTemperaturaCdf(), 'r', label= 'Container') #row= 0 col= 0 -> Container
-        ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
+        #ax[0, 0].plot(str(dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
+        #ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
         ax[0, 0].set_title('Temperature')
         ax[0, 0].set_ylabel('Degrees (ºC)')
         ax[0, 0].set_ylim(0, 50)
         ax[0, 0].legend()
         #Altitude
-        ax[0, 1].plot(self.altitudeC, 'r', label='Container') #row= 0 col=1
-        ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
+        ax[0, 1].plot(str(dataframe.getAltitudeCdf()), 'r', label='Container') #row= 0 col=1
+        #ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
         ax[0, 1].set_title('Altitude')
         ax[0, 1].set_xlabel('Time (s)')
         ax[0, 1].set_ylabel('Meters (m)')
         ax[0, 1].set_ylim(0, 800)
         ax[0, 1].legend()
         #Voltage
-        ax[1, 0].plot(self.voltageC, 'r', label='Container') #row=1 col= 0
-        ax[1, 0].plot(self.voltageP, 'g', label='Payload')
+        #ax[1, 0].plot(self.voltageC, 'r', label='Container') #row=1 col= 0
+        #ax[1, 0].plot(self.voltageP, 'g', label='Payload')
         ax[1, 0].set_title('Voltage')
         ax[1, 0].set_xlabel('Tempo (s)')
         ax[1, 0].set_ylabel('Tensão (V)')
         ax[1, 0].set_ylim(0, 15)
         ax[1, 0].legend()
         #Coordenadas GPS container
-        ax[1, 1].plot(self.gpsLatitudeC, 'r', label='Latitude') #row=1 col=1
-        ax[1, 1].plot(self.gpsLongitudeC, 'g', label='Longitude')
+        #ax[1, 1].plot(self.gpsLatitudeC, 'r', label='Latitude') #row=1 col=1
+        #ax[1, 1].plot(self.gpsLongitudeC, 'g', label='Longitude')
         ax[1, 1].set_title('Coordinates GPS container')
         ax[1, 1].set_xlabel('Latitude (Leste/East)')
         ax[1, 1].set_ylabel('Longitude (Oeste/West)')
@@ -127,33 +127,33 @@ class Tela:
         ax[1, 1].set_xlim(-100, 100)
         ax[1, 1].legend()
         #Altitude GPS container
-        ax[2, 0].plot(self.gpsAlturaC, 'r') #row=2 col=0
+        #ax[2, 0].plot(self.gpsAlturaC, 'r') #row=2 col=0
         ax[2, 0].set_title('GPS altitude')
         ax[2, 0].set_xlabel('Time (s)')
         ax[2, 0].set_ylabel('Meters (m)')
         ax[2, 0].set_ylim(0, 800)
         #Giroscopio Payload
-        ax[2, 1].plot(self.giroscopioP, 'blue', label='X') #row= 2 col=1
-        ax[2, 1].plot(self.giroscopioY, 'g', label='Y')
-        ax[2, 1].plot(self.giroscopioR, 'r', label='Z')
+        #ax[2, 1].plot(self.giroscopioP, 'blue', label='X') #row= 2 col=1
+        #ax[2, 1].plot(self.giroscopioY, 'g', label='Y')
+        #ax[2, 1].plot(self.giroscopioR, 'r', label='Z')
         ax[2, 1].set_title('Gyroscope Payload')
         ax[2, 1].set_xlabel('Time (s)')
         ax[2, 1].set_ylabel('Rotation (°/s)')
         ax[2, 1].set_ylim(-2000, 2000)
         ax[2, 1].legend()
         #Acelerometro Payload
-        ax[3, 0].plot(self.acelerometroP, 'b', label='X') #row=3 col=0
-        ax[3, 0].plot(self.acelerometroY, 'g', label='Y')
-        ax[3, 0].plot(self.acelerometroR, 'r', label='Z')
+        #ax[3, 0].plot(self.acelerometroP, 'b', label='X') #row=3 col=0
+        #ax[3, 0].plot(self.acelerometroY, 'g', label='Y')
+        #ax[3, 0].plot(self.acelerometroR, 'r', label='Z')
         ax[3, 0].set_title('Accelerometer payload')
         ax[3, 0].set_xlabel('Time (s)')
         ax[3, 0].set_ylabel('Acceleration (a)')
         ax[3, 0].set_ylim(-10, 10)
         ax[3, 0].legend()
         #Magnetometro Payload
-        ax[3, 1].plot(self.magnetometroP, 'b', label='X') #row=3 col=1
-        ax[3, 1].plot(self.magnetometroY, 'g', label='Y')
-        ax[3, 1].plot(self.magnetometroR, 'r', label='Z')
+        #ax[3, 1].plot(self.magnetometroP, 'b', label='X') #row=3 col=1
+        #ax[3, 1].plot(self.magnetometroY, 'g', label='Y')
+        #ax[3, 1].plot(self.magnetometroR, 'r', label='Z')
         ax[3, 1].set_title('Magnetometer payload')
         ax[3, 1].set_xlabel('Time (s)')
         ax[3, 1].set_ylabel('Gauss (G)')
@@ -162,14 +162,13 @@ class Tela:
 
         figura.tight_layout() 
 
-        self.SerialCon()
-
         self.canva= FigureCanvasTkAgg(figura, self.ContainerPlot)
         self.canva.get_tk_widget().grid(row=0, column=0)
 
         self.containerMaster.mainloop()
 
 if __name__ == '__main__':
-    Tela()
+    tela = Tela()
+    tela.renderTela(dataframe())
 
 

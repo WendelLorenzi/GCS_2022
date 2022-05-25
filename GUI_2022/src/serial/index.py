@@ -6,7 +6,7 @@ from conection import ConectionS
 
 
 class serialC:  
-        def Captura(self, ConectionS, porta):
+        def Captura(self, ConectionS, porta, stop=False):
             MSP = serial.Serial(str(porta), 9600, timeout=3)
             arquivoAltitudeC = open(File.ALTITUDEC, 'w')
             arquivoTemperaturaC = open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/temperaturaC.csv', 'w')
@@ -34,7 +34,7 @@ class serialC:
                     data = MSP.readline().decode()
                     dataSplit= data.split(',')
                     print(dataSplit)
-                    if len(dataSplit) > 1:
+                    if (len(dataSplit) > 1 & stop != True):
                         #filterVector(dataSplit)
                         if (dataSplit[3] == "c"):
                             ConectionS.setAltitudeC(dataSplit[0])
@@ -56,6 +56,42 @@ class serialC:
                             ConectionS.setMagnetometroR(dataSplit[16])
                             ConectionS.setMagnetometroP(dataSplit[17])
                             ConectionS.setMagnetometroY(dataSplit[18])
+                    else: 
+                        arquivoAltitudeC.write(str(ConectionS.getAltitudeC()))
+                        arquivoTemperaturaC.write(str(ConectionS.getTemperaturaC()))
+                        arquivoVoltageC.write(str(ConectionS.getVoltageC()))
+                        arquivoGpsLatitudeC.write(str(ConectionS.getGpsLatitudeC()))
+                        arquivoGpsLongitudeC.write(str(ConectionS.getGpsLongitudeC()))
+                        arquivoGpsAlturaC.write(str(ConectionS.getGpsAlturaC()))
+                        arquivoAltitudeP.write(str(ConectionS.getAltitudeP()))
+                        arquivoTemperaturaP.write(str(ConectionS.getTemperaturaP()))
+                        arquivosetVoltageP.write(str(ConectionS.getVoltageP()))
+                        arquivoGiroscopioR.write(str(ConectionS.getGiroscopioR()))
+                        arquivoGiroscopioP.write(str(ConectionS.getGiroscopioP()))
+                        arquivoGiroscopioY.write(str(ConectionS.getGiroscopioY()))
+                        arquivoAcelerometroR.write(str(ConectionS.getAcelerometroR()))
+                        arquivoAcelerometroP.write(str(ConectionS.getAcelerometroP()))
+                        arquivoAcelerometroY.write(str(ConectionS.getAcelerometroY()))
+                        arquivoMagnetometroR.write(str(ConectionS.getMagnetometroR()))
+                        arquivoMagnetometroP.write(str(ConectionS.getMagnetometroP()))
+                        arquivoMagnetometroY.write(str(ConectionS.getMagnetometroY()))
+                        arquivoAltitudeC.close()
+                        arquivoTemperaturaC.close()
+                        arquivoVoltageC.close()
+                        arquivoGpsLongitudeC.close()
+                        arquivoGpsAlturaC.close()
+                        arquivoAltitudeP.close()
+                        arquivoTemperaturaP.close()
+                        arquivosetVoltageP.close()
+                        arquivoGiroscopioR.close()
+                        arquivoGiroscopioP.close()
+                        arquivoGiroscopioY.close()
+                        arquivoAcelerometroR.close()
+                        arquivoAcelerometroP.close()
+                        arquivoAcelerometroY.close()
+                        arquivoMagnetometroR.close()
+                        arquivoMagnetometroP.close()
+                        arquivoMagnetometroY.close()
             except:
                 print(error)
             finally:
