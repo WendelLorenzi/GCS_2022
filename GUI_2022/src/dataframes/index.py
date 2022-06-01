@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 #from src.utils.pathArquivos import File
 
 class dataframe:
@@ -21,16 +22,22 @@ class dataframe:
     #             self.__magnetometroR= magnetometroRdf
     #             self.__magnetometroP= magnetometroPdf
     #             self.__magnetometroY= magnetometroYdf
+    
+    def filter(self, df: pd) -> pd:
+        df.replace('', np.nan, inplace=True)
+        df.replace([np.inf, -np.inf], np.nan, inplace=True)
+        return df
                 
     def getAltitudeCdf(self):
-        dfAltitudeC= pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.csv', sep=',', encoding="utf-8")
+        dfAltitudeC= pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.csv')
+        dfFilter = self.filter(dfAltitudeC)
         #self.__altitudeC= dfAltitudeC[0].values.tolist()
         #dfAltitudeC.to_records(index=False)
         #dfAltitudeC.to_dict('records')
-        print(dfAltitudeC[:0].to_string())
-        aux = dfAltitudeC.iloc(0)
-        #print(aux)
-        return aux
+        #print(dfAltitudeC.iloc[0].to_list())
+        #aux = eval(str(dfFilter.iloc[0].to_numpy()).lstrip('["').rstrip('"]'))
+        print(dfAltitudeC[0].to_numpy(dtype ='float32'))
+        #return set(dfFilter[1:])
     
     # def getTemperaturaCdf(self):
     #     dfTemperaturaC= pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/temperaturaC.csv', sep=',', encoding="utf-8")
@@ -91,7 +98,7 @@ class dataframe:
     
 if __name__ == '__main__':
     a = dataframe()
-    print(a.getAltitudeCdf())
+    a.getAltitudeCdf()
     print()
     #print(a.getTemperaturaCdf())
     #print(serialC.getAltitudeC())

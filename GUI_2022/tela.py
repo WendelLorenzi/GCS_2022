@@ -1,10 +1,13 @@
 # coding=utf-8
 
+from cProfile import label
 from tkinter import *
+import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 #from drawnow import *
 from src.dataframes.index import dataframe
+import pandas as pd
 
 class Tela:
     def renderTela(self, dataframe):
@@ -93,7 +96,7 @@ class Tela:
 
         #Criando a figure
         figura= plt.figure(figsize= (17,10), dpi=60)
-        ax= figura.subplots(4, 2)
+        ax: plt = figura.subplots(4, 2)
         #Temperatura
         #ax[0, 0].plot(str(dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
         #ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
@@ -102,12 +105,12 @@ class Tela:
         ax[0, 0].set_ylim(0, 50)
         ax[0, 0].legend()
         #Altitude
-        ax[0, 1].plot(str(dataframe.getAltitudeCdf()), 'r', label='Container') #row= 0 col=1
+        #print(len(self.package))
+        #ax[0, 1].plot(self.package, self.altitudec, 'bo') #row= 0 col=1
         #ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
-        ax[0, 1].set_title('Altitude')
-        ax[0, 1].set_xlabel('Time (s)')
+        ax[0, 1].set_title('Altitude Container')
+        ax[0, 1].set_xlabel('package')
         ax[0, 1].set_ylabel('Meters (m)')
-        ax[0, 1].set_ylim(0, 800)
         ax[0, 1].legend()
         #Voltage
         #ax[1, 0].plot(self.voltageC, 'r', label='Container') #row=1 col= 0
