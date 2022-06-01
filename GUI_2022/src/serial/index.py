@@ -7,7 +7,7 @@ from conection import ConectionS
 
 
 class serialC:
-    def teste(self, arquivo, ConectionS):
+    def teste(self, arquivo,ConectionS):
         arquivo = csv.writer(arquivo)
         for value in range(len(ConectionS)):
             arquivo.writerow([ConectionS[value]])
@@ -107,7 +107,3 @@ class serialC:
         finally:
             MSP.close()
             self.carregaCsv(ConectionS)
-    
-if __name__ == '__main__':
-    A= serialC()
-    A.Captura(ConectionS(), '/dev/ttyACM0')
