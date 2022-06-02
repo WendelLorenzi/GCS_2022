@@ -80,7 +80,6 @@ class serialC:
                 dataSplit= data.split(',')
                 print(dataSplit)
                 if (len(dataSplit) > 1 & stop != True):
-                    #filterVector(dataSplit)
                     if (dataSplit[3] == "c"):
                         ConectionS.setAltitudeC(dataSplit[0])
                         ConectionS.setTemperaturaC(dataSplit[1])
@@ -88,7 +87,7 @@ class serialC:
                         ConectionS.setGpsLatitudeC(dataSplit[4])
                         ConectionS.setGpsLongitudeC(dataSplit[5])
                         ConectionS.setGpsAlturaC(dataSplit[6])
-                    elif dataSplit[3] == "t":
+                    elif (dataSplit[3] == "t"):
                         ConectionS.setAltitudeP(dataSplit[7])
                         ConectionS.setTemperaturaP(dataSplit[8])
                         ConectionS.setVoltageP(dataSplit[9])
