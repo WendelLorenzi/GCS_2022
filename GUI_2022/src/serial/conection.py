@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class ConectionS:
-    def __init__(self, altitudeC=[], temperaturaC=[], voltageC=[], gpsLatitudeC=[], gpsLongitudeC=[], gpsAlturaC=[], altitudeP= [], temperaturaP=[], voltageP=[], giroscopioR=[], giroscopioP=[], giroscopioY=[], acelerometroR=[], acelerometroP=[], acelerometroY=[], magnetometroR=[], magnetometroP=[], magnetometroY=[]):
+    def __init__(self, altitudeC=[], temperaturaC=[], voltageC=[], gpsLatitudeC=[], gpsLongitudeC=[], gpsAlturaC=[], altitudeP= [], temperaturaP=[], voltageP=[], giroscopioR=[], giroscopioP=[], giroscopioY=[], acelerometroR=[], acelerometroP=[], acelerometroY=[], magnetometroR=[], magnetometroP=[], magnetometroY=[], packageType=[]):
         self.__altitudeC= altitudeC
         self.__temperaturaC= temperaturaC
         self.__voltageC= voltageC
@@ -20,6 +20,7 @@ class ConectionS:
         self.__magnetometroR= magnetometroR
         self.__magnetometroP= magnetometroP
         self.__magnetometroY= magnetometroY
+        self.__packageType = packageType
 
     def setAltitudeC(self, altitudeC):
         self.__altitudeC.append(altitudeC)
@@ -74,6 +75,9 @@ class ConectionS:
 
     def setMagnetometroY(self, magnetometroY):
         self.__magnetometroY.append(magnetometroY)
+        
+    def setPackagetType(self, packageType):
+        self.__packageType.append(packageType)
     
     def getAltitudeC(self):
         return self.__altitudeC
@@ -128,3 +132,36 @@ class ConectionS:
 
     def getMagnetometroY(self):
         return self.__magnetometroY
+
+    def getPackegeType(self):
+        return self.__packageType
+    
+    def clear(self):
+        self.__altitudeC.clear()
+        self.__temperaturaC.clear()
+        self.__voltageC.clear()
+        self.__giroscopioR.clear()
+        self.__giroscopioP.clear()
+        self.__giroscopioY.clear()
+        self.__acelerometroR.clear()
+        self.__acelerometroP.clear()
+        self.__acelerometroY.clear()
+        self.__acelerometroR.clear()
+        self.__acelerometroP.clear()
+        self.__acelerometroY.clear()
+        self.__magnetometroR.clear()
+        self.__magnetometroP.clear()
+        self.__magnetometroY.clear()
+        self.__packageType.clear()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

@@ -1,16 +1,17 @@
 # coding=utf-8
 import time
+import sys
 from tkinter import *
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
-from dataframes.index import dataframe
-from serial.conection import ConectionS
-from serial.index import serialC
+from src.dataframes.index import dataframe
+from src.serial.index import serialC
+from src.serial.conection import ConectionS
 
 
 class Tela:
-    def renderTela(self, dataframe):
+    def __init__(self, dataframe: dataframe()):
         # Construção da tela começa aqui
         self.containerMaster = Tk()
         self.containerMaster.geometry("1200x800")
@@ -30,12 +31,14 @@ class Tela:
         self.BotaoStart.configure(pady='0')
         self.BotaoStart.configure(text=''' START ''')
         self.BotaoStart.configure(font=("Times New Roman", 10, "bold"))
+        self.BotaoStart.configure(command= self.getInit())
 
         self.BotaoStop = Button(self.containerMaster)
         self.BotaoStop.place(relx=0.09, rely=0.10, height=40, width=100)
         self.BotaoStop.configure(pady='0')
         self.BotaoStop.configure(text=''' STOP and Save ''')
         self.BotaoStop.configure(font=("Times New Roman", 10, "bold"))
+        self.BotaoStop.configure(command= self.getInit(True))
 
         self.BotaoSimEnable = Button(self.containerMaster)
         self.BotaoSimEnable.place(relx=0.025, rely=0.20, height=30, width=150)
@@ -102,17 +105,14 @@ class Tela:
         figura = plt.figure(figsize=(17, 10), dpi=60)
         ax: plt = figura.subplots(4, 2)
         # Temperatura
-        # ax[0, 0].plot(str(dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
+        # ax[0, 0].plot(self.__dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
         # ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
         ax[0, 0].set_title('Temperature')
         ax[0, 0].set_ylabel('Degrees (ºC)')
         ax[0, 0].set_ylim(0, 50)
         ax[0, 0].legend()
         # Altitude
-        self.altitudec.append(dataframe.getAltitudeCdf())
-        self.Countpackage = np.arange(0, len(self.altitudec), 1)
-        print(len(self.package))
-        ax[0, 1].plot(self.Countpackage, self.altitudec, 'bo')  # row= 0 col=1
+        #ax[0, 1].plot(self.Countpackage, self.altitudec, 'bo')  # row= 0 col=1
         #ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
         ax[0, 1].set_title('Altitude Container')
         ax[0, 1].set_xlabel('package')
@@ -175,27 +175,25 @@ class Tela:
         self.canva.get_tk_widget().grid(row=0, column=0)
 
         self.containerMaster.mainloop()
-
-
-def segundo():
-    cont = 0
-    controller = False
-    while controller == False:
-        time.sleep(1)
-        cont = cont + 1
-        if cont == 5:
-            controller = True
+    
+    def getInit(self, final= False):
+        conection = ConectionS()
+        serial = serialC()
+        if(final != True):
+            serial.Captura(conection, '/dev/ttyACM0')
             cont = 0
-            return controller
+            controller = False
+            while controller == False:
+                time.sleep(1)
+                cont = cont + 1
+                if cont == 5:
+                    serial.carregaCsv(conection)
+                    controller = True
+                    cont = 0
+        else:
+            serial.Captura(conection, '/dev/ttyACM0', True)
 
 
 if __name__ == '__main__':
-    serial = serialC()
-    conection = ConectionS()
-    db = dataframe()
-    tela = Tela()
-    controller = segundo()
-    if controller == True:
-        serial.Captura(conection, '/dev/ttyACM0', controller)
-    serial.Captura(conection, '/dev/ttyACM0')
-    tela.renderTela(db)
+    Tela(dataframe())
+

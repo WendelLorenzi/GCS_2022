@@ -2,12 +2,10 @@
 import csv
 from distutils.log import error
 import serial
-#from utils.pathArquivos import File
-from conection import ConectionS
 
 
 class serialC:
-    def unloadVet(self, arquivo,ConectionS):
+    def unloadVet(self, arquivo, ConectionS):
         arquivo = csv.writer(arquivo)
         for value in range(len(ConectionS)):
             arquivo.writerow([ConectionS[value]])
@@ -50,24 +48,8 @@ class serialC:
             arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
         with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/MagnetometroY.csv','w') as arquivoMagnetometroY:
             arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
-       
-        arquivoAltitudeC.close()
-        arquivoTemperaturaC.close()
-        arquivoVoltageC.close()
-        arquivoGpsLongitudeC.close()
-        arquivoGpsAlturaC.close()
-        arquivoAltitudeP.close()
-        arquivoTemperaturaP.close()
-        arquivosetVoltageP.close()
-        arquivoGiroscopioR.close()
-        arquivoGiroscopioP.close()
-        arquivoGiroscopioY.close()
-        arquivoAcelerometroR.close()
-        arquivoAcelerometroP.close()
-        arquivoAcelerometroY.close()
-        arquivoMagnetometroR.close()
-        arquivoMagnetometroP.close()
-        arquivoMagnetometroY.close()
+        
+        ConectionS.clear()
         
     def Captura(self, ConectionS, porta, stop=False):
         MSP = serial.Serial(str(porta), 9600, timeout=3)
@@ -80,6 +62,7 @@ class serialC:
                 dataSplit= data.split(',')
                 print(dataSplit)
                 if (len(dataSplit) > 1 & stop != True):
+                    ConectionS.setPackagetType(dataSplit[3])
                     if (dataSplit[3] == "c"):
                         ConectionS.setAltitudeC(dataSplit[0])
                         ConectionS.setTemperaturaC(dataSplit[1])
