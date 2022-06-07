@@ -1,17 +1,17 @@
 # coding=utf-8
 import time
-import sys
 from tkinter import *
-import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from src.dataframes.index import dataframe
-from src.serial.index import serialC
-from src.serial.conection import ConectionS
-
+from src.serialCom.index import SerialC
+from src.serialCom.conection import ConectionS
+import _thread
+from main import setStart, setStop
 
 class Tela:
-    def __init__(self, dataframe: dataframe()):
+    
+    def __init__(self):
         # Construção da tela começa aqui
         self.containerMaster = Tk()
         self.containerMaster.geometry("1200x800")
@@ -31,14 +31,14 @@ class Tela:
         self.BotaoStart.configure(pady='0')
         self.BotaoStart.configure(text=''' START ''')
         self.BotaoStart.configure(font=("Times New Roman", 10, "bold"))
-        self.BotaoStart.configure(command= self.getInit())
+        self.BotaoStart.configure(command= setStart)
 
         self.BotaoStop = Button(self.containerMaster)
         self.BotaoStop.place(relx=0.09, rely=0.10, height=40, width=100)
         self.BotaoStop.configure(pady='0')
         self.BotaoStop.configure(text=''' STOP and Save ''')
         self.BotaoStop.configure(font=("Times New Roman", 10, "bold"))
-        self.BotaoStop.configure(command= self.getInit(True))
+        self.BotaoStop.configure(command= setStop)
 
         self.BotaoSimEnable = Button(self.containerMaster)
         self.BotaoSimEnable.place(relx=0.025, rely=0.20, height=30, width=150)
@@ -100,35 +100,28 @@ class Tela:
             relx=0.18, rely=0.1, relheight=0.88, relwidth=0.81)
         self.ContainerPlot.configure(width=1000)
         self.ContainerPlot.configure(background='#696969')
-
+        
         # Criando a figure
         figura = plt.figure(figsize=(17, 10), dpi=60)
         ax: plt = figura.subplots(4, 2)
+
         # Temperatura
-        # ax[0, 0].plot(self.__dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
-        # ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
         ax[0, 0].set_title('Temperature')
         ax[0, 0].set_ylabel('Degrees (ºC)')
         ax[0, 0].set_ylim(0, 50)
         ax[0, 0].legend()
         # Altitude
-        #ax[0, 1].plot(self.Countpackage, self.altitudec, 'bo')  # row= 0 col=1
-        #ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
         ax[0, 1].set_title('Altitude Container')
         ax[0, 1].set_xlabel('package')
         ax[0, 1].set_ylabel('Meters (m)')
         ax[0, 1].legend()
         # Voltage
-        # ax[1, 0].plot(self.voltageC, 'r', label='Container') #row=1 col= 0
-        #ax[1, 0].plot(self.voltageP, 'g', label='Payload')
         ax[1, 0].set_title('Voltage')
         ax[1, 0].set_xlabel('Tempo (s)')
         ax[1, 0].set_ylabel('Tensão (V)')
         ax[1, 0].set_ylim(0, 15)
         ax[1, 0].legend()
         # Coordenadas GPS container
-        # ax[1, 1].plot(self.gpsLatitudeC, 'r', label='Latitude') #row=1 col=1
-        #ax[1, 1].plot(self.gpsLongitudeC, 'g', label='Longitude')
         ax[1, 1].set_title('Coordinates GPS container')
         ax[1, 1].set_xlabel('Latitude (Leste/East)')
         ax[1, 1].set_ylabel('Longitude (Oeste/West)')
@@ -136,64 +129,56 @@ class Tela:
         ax[1, 1].set_xlim(-100, 100)
         ax[1, 1].legend()
         # Altitude GPS container
-        # ax[2, 0].plot(self.gpsAlturaC, 'r') #row=2 col=0
         ax[2, 0].set_title('GPS altitude')
         ax[2, 0].set_xlabel('Time (s)')
         ax[2, 0].set_ylabel('Meters (m)')
         ax[2, 0].set_ylim(0, 800)
         # Giroscopio Payload
-        # ax[2, 1].plot(self.giroscopioP, 'blue', label='X') #row= 2 col=1
-        #ax[2, 1].plot(self.giroscopioY, 'g', label='Y')
-        #ax[2, 1].plot(self.giroscopioR, 'r', label='Z')
         ax[2, 1].set_title('Gyroscope Payload')
         ax[2, 1].set_xlabel('Time (s)')
         ax[2, 1].set_ylabel('Rotation (°/s)')
         ax[2, 1].set_ylim(-2000, 2000)
         ax[2, 1].legend()
         # Acelerometro Payload
-        # ax[3, 0].plot(self.acelerometroP, 'b', label='X') #row=3 col=0
-        #ax[3, 0].plot(self.acelerometroY, 'g', label='Y')
-        #ax[3, 0].plot(self.acelerometroR, 'r', label='Z')
         ax[3, 0].set_title('Accelerometer payload')
         ax[3, 0].set_xlabel('Time (s)')
         ax[3, 0].set_ylabel('Acceleration (a)')
         ax[3, 0].set_ylim(-10, 10)
         ax[3, 0].legend()
         # Magnetometro Payload
-        # ax[3, 1].plot(self.magnetometroP, 'b', label='X') #row=3 col=1
-        #ax[3, 1].plot(self.magnetometroY, 'g', label='Y')
-        #ax[3, 1].plot(self.magnetometroR, 'r', label='Z')
         ax[3, 1].set_title('Magnetometer payload')
         ax[3, 1].set_xlabel('Time (s)')
         ax[3, 1].set_ylabel('Gauss (G)')
         ax[3, 1].set_ylim(-150, 150)
         ax[3, 1].legend()
-
+        
+        # Obs: paralelizar
+        ax = self.tst(ax)
+    
         figura.tight_layout()
-
         self.canva = FigureCanvasTkAgg(figura, self.ContainerPlot)
         self.canva.get_tk_widget().grid(row=0, column=0)
-
         self.containerMaster.mainloop()
-    
-    def getInit(self, final= False):
-        conection = ConectionS()
-        serial = serialC()
-        if(final != True):
-            serial.Captura(conection, '/dev/ttyACM0')
-            cont = 0
-            controller = False
-            while controller == False:
-                time.sleep(1)
-                cont = cont + 1
-                if cont == 5:
-                    serial.carregaCsv(conection)
-                    controller = True
-                    cont = 0
-        else:
-            serial.Captura(conection, '/dev/ttyACM0', True)
-
-
-if __name__ == '__main__':
-    Tela(dataframe())
-
+        
+    def tst(ax: plt):
+        #ax[0, 0].plot(self.__dataframe.getTemperaturaCdf()), 'r', label= 'Container') #row= 0 col= 0 -> Container
+        #ax[0, 0].plot(self.temperaturaP, 'g', label= 'Payload') #-> Payload
+        #ax[0, 1].plot(self.Countpackage, self.altitudec, 'bo')  # row= 0 col=1
+        #ax[0, 1].plot(self.altitudeP, 'g', label='Payload')
+        # ax[1, 0].plot(self.voltageC, 'r', label='Container') #row=1 col= 0
+        #ax[1, 0].plot(self.voltageP, 'g', label='Payload')
+        # ax[1, 1].plot(self.gpsLatitudeC, 'r', label='Latitude') #row=1 col=1
+        #ax[1, 1].plot(self.gpsLongitudeC, 'g', label='Longitude')
+        # ax[2, 0].plot(self.gpsAlturaC, 'r') #row=2 col=0
+        # ax[2, 1].plot(self.giroscopioP, 'blue', label='X') #row= 2 col=1
+        #ax[2, 1].plot(self.giroscopioY, 'g', label='Y')
+        #ax[2, 1].plot(self.giroscopioR, 'r', label='Z')
+        # ax[3, 0].plot(self.acelerometroP, 'b', label='X') #row=3 col=0
+        #ax[3, 0].plot(self.acelerometroY, 'g', label='Y')
+        #ax[3, 0].plot(self.acelerometroR, 'r', label='Z')
+        #ax[3, 1].plot(self.magnetometroP, 'b', label='X') #row=3 col=1
+        #ax[3, 1].plot(self.magnetometroY, 'g', label='Y')
+        #ax[3, 1].plot(self.magnetometroR, 'r', label='Z')
+        return ax
+        
+Tela(dataframe())

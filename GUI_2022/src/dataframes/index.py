@@ -9,27 +9,27 @@ class dataframe:
         df.replace([np.inf, -np.inf], np.nan, inplace=True)
         return df
     
-    def unifyData(self, dfAltitudeC, dfTemperaturaC, dfVoltageC, gpsLatitudeCdf, dfGpsLongitudeCdf, dfAlturaCdf , dfAltitudePdf, dfTemperaturaP):
-        dfC = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_C.csv', skiprows=1)
-        dfT = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_T.csv', skiprows=1)
-        dfC['TEMP'] = dfTemperaturaC.iloc[0:]
-        dfC['VOLTAGE'] = dfVoltageC.iloc[0:]
-        dfC['GPS_LATITUDE'] = gpsLatitudeCdf.iloc[0:]
-        dfC['GPS_LONGITUDE'] = dfGpsLongitudeCdf.iloc[0:]
-        dfC['GPS_ALTITUDE'] = dfAltitudeC.iloc[0:]
-        dfC['ALTITUDE'] = dfAlturaCdf.iloc[0:]
-        dfT['TP_ALTITUDE'] = dfAltitudePdf.iloc[0:]
-        dfT['TP_TEMP'] = dfTemperaturaP.iloc[0:]
-        dfT['TP_VOLTAGE']
-        dfT['GYRO_R']
-        dfT['GYRO_P']
-        dfT['GYRO_Y']
-        dfT['ACCEL_R']
-        dfT['ACCEL_P']
-        dfT['ACCEL_Y']
-        dfT['MAG_R']
-        dfT['MAG_P']
-        dfT['MAG_Y']
+    # def unifyData(self, dfAltitudeC, dfTemperaturaC, dfVoltageC, gpsLatitudeCdf, dfGpsLongitudeCdf, dfAlturaCdf , dfAltitudePdf, dfTemperaturaP):
+    #     dfC = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_C.csv', skiprows=1)
+    #     dfT = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_T.csv', skiprows=1)
+    #     dfC['TEMP'] = dfTemperaturaC.iloc[0:]
+    #     dfC['VOLTAGE'] = dfVoltageC.iloc[0:]
+    #     dfC['GPS_LATITUDE'] = gpsLatitudeCdf.iloc[0:]
+    #     dfC['GPS_LONGITUDE'] = dfGpsLongitudeCdf.iloc[0:]
+    #     dfC['GPS_ALTITUDE'] = dfAltitudeC.iloc[0:]
+    #     dfC['ALTITUDE'] = dfAlturaCdf.iloc[0:]
+    #     dfT['TP_ALTITUDE'] = dfAltitudePdf.iloc[0:]
+    #     dfT['TP_TEMP'] = dfTemperaturaP.iloc[0:]
+    #     dfT['TP_VOLTAGE']
+    #     dfT['GYRO_R']
+    #     dfT['GYRO_P']
+    #     dfT['GYRO_Y']
+    #     dfT['ACCEL_R']
+    #     dfT['ACCEL_P']
+    #     dfT['ACCEL_Y']
+    #     dfT['MAG_R']
+    #     dfT['MAG_P']
+    #     dfT['MAG_Y']
 
     def getAltitudeCdf(self):
         dfAltitudeC = pd.read_csv(
