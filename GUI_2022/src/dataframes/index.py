@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-#from src.utils.pathArquivos import File
+from src.serialCom.index import File
 
 
 class dataframe:
@@ -9,94 +9,123 @@ class dataframe:
         df.replace([np.inf, -np.inf], np.nan, inplace=True)
         return df
     
-    # def unifyData(self, dfAltitudeC, dfTemperaturaC, dfVoltageC, gpsLatitudeCdf, dfGpsLongitudeCdf, dfAlturaCdf , dfAltitudePdf, dfTemperaturaP):
-    #     dfC = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_C.csv', skiprows=1)
-    #     dfT = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_T.csv', skiprows=1)
-    #     dfC['TEMP'] = dfTemperaturaC.iloc[0:]
-    #     dfC['VOLTAGE'] = dfVoltageC.iloc[0:]
-    #     dfC['GPS_LATITUDE'] = gpsLatitudeCdf.iloc[0:]
-    #     dfC['GPS_LONGITUDE'] = dfGpsLongitudeCdf.iloc[0:]
-    #     dfC['GPS_ALTITUDE'] = dfAltitudeC.iloc[0:]
-    #     dfC['ALTITUDE'] = dfAlturaCdf.iloc[0:]
-    #     dfT['TP_ALTITUDE'] = dfAltitudePdf.iloc[0:]
-    #     dfT['TP_TEMP'] = dfTemperaturaP.iloc[0:]
-    #     dfT['TP_VOLTAGE']
-    #     dfT['GYRO_R']
-    #     dfT['GYRO_P']
-    #     dfT['GYRO_Y']
-    #     dfT['ACCEL_R']
-    #     dfT['ACCEL_P']
-    #     dfT['ACCEL_Y']
-    #     dfT['MAG_R']
-    #     dfT['MAG_P']
-    #     dfT['MAG_Y']
+    def unifyData(self):
+        dfC = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_C.csv', skiprows=1)
+        dfT = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_T.csv', skiprows=1)
+        dfC['TEMP'] = self.getTemperaturaCdf()
+        dfC['VOLTAGE'] = self.getVoltageCdf()
+        dfC['GPS_LATITUDE'] = self.getAltitudeCdf()
+        dfC['GPS_LONGITUDE'] = self.getGpsLongitudeCdf()
+        dfC['GPS_ALTITUDE'] = self.getAltitudeCdf()
+        dfC['ALTITUDE'] = self.getAltitudeCdf()
+        dfT['TP_ALTITUDE'] = self.getAltitudePdf()
+        dfT['TP_TEMP'] = self.getTemperaturaPdf()
+        dfT['TP_VOLTAGE'] = self.getVoltageP()
+        dfT['GYRO_R'] = self.getGiroscopioR()
+        dfT['GYRO_P'] = self.getGiroscopioP()
+        dfT['GYRO_Y'] = self.getGiroscopioY()
+        dfT['ACCEL_R'] = self.getAcelerometroR()
+        dfT['ACCEL_P'] = self.getAcelerometroP()
+        dfT['ACCEL_Y'] = self.getAcelerometroY()
+        dfT['MAG_R'] = self.getMagnetometroR()
+        dfT['MAG_P'] = self.getAcelerometroP()
+        dfT['MAG_Y'] = self.getMagnetometroY()
+        dfT['PACKET_TYPE'] = self.getPakageType()
+        dfC['PACKET_TYPE'] = self.getPakageType()
+        dfT['PACKET_COUNT'].set_index('PACKET_TYPE') 
+        dfC['PACKET_COUNT'].set_index('PACKET_TYPE')
 
     def getAltitudeCdf(self):
-        dfAltitudeC = pd.read_csv(
-            '/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/altitudeC.csv')
+        dfAltitudeC = pd.read_csv(str(File.ALTITUDEC))
         dfFilter = self.filter(dfAltitudeC)
         return (dfFilter.iloc[0:].to_numpy())
         
-    # def getTemperaturaCdf(self):
-    #     dfTemperaturaC= pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/temperaturaC.csv', sep=',', encoding="utf-8")
-    #     try:
-    #         dfTemperaturaC.to_records(index=False)
-    #         print(dfTemperaturaC[0])
-    #         return dfTemperaturaC[0]
-    #     except:
-    #         print('error')
+    def getTemperaturaCdf(self):
+        dfTemperaturaC= pd.read_csv(str(File.TEMPERATURAC))
+        dfFilter = self.filter(dfTemperaturaC)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getVoltageCdf(self):
-    #     dfVoltageC= pd.read_csv(File.VOLTAGEC, sep=',', encoding="utf-8")
-    #     try:
-    #         self.__voltageC= dfVoltageC[0]
-    #         return self.__voltageC
-    #     except:
-    #         print(error)
+    def getVoltageCdf(self):
+        dfVoltageC= pd.read_csv(str(File.VOLTAGEC))
+        dfFilter = self.filter(dfVoltageC)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getGpsLatitudeCdf(self):
-    #     gpsLatitudeCdf= pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/txtTransicao/gpsLatitudeC.csv', sep=',', encoding="utf-8")
-    #     try:
-    #         self.__gpsLatitudeC= gpsLatitudeCdf[0]
-    #         return self.__gpsLatitudeC
-    #     except:
-    #         print(error)
+    def getGpsLatitudeCdf(self):
+        gpsLatitudeCdf= pd.read_csv(str(File.GPSLATITUDE))
+        dfFilter = self.filter(gpsLatitudeCdf)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getGpsLongitudeCdf(self):
-    #     dfGpsLongitudeCdf= pd.read_csv(File.GPSLONGITUDE, sep=',', encoding="utf-8")
-    #     try:
-    #         self.__gpsLongitudeC= dfGpsLongitudeCdf[0]
-    #         return self.__gpsLongitudeC
-    #     except:
-    #         print(error)
+    def getGpsLongitudeCdf(self):
+        dfGpsLongitudeCdf= pd.read_csv(str(File.GPSLONGITUDE))
+        dfFilter = self.filter(dfGpsLongitudeCdf)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getGpsAlturaCdf(self):
-    #     dfAlturaCdf= pd.read_csv(File.GPSALTURAC, sep=',', encoding="utf-8")
-    #     try:
-    #         self.__gpsAlturaC= dfAlturaCdf[0]
-    #         return self.__gpsAlturaC
-    #     except:
-    #         print(error)
+    def getGpsAlturaCdf(self):
+        dfAlturaCdf= pd.read_csv(str(File.GPSALTURAC))
+        dfFilter = self.filter(dfAlturaCdf)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getAltitudePdf(self):
-    #     dfAltitudePdf= pd.read_csv(File.ALTITUDEP, sep=',', encoding="utf-8")
-    #     try:
-    #         self.__altitudeP= dfAltitudePdf[0]
-    #         return self.__altitudeP
-    #     except:
-    #         print(error)
+    def getAltitudePdf(self):
+        dfAltitudePdf= pd.read_csv(str(File.ALTITUDEP))
+        dfFilter = self.filter(dfAltitudePdf)
+        return (dfFilter.iloc[0:].to_numpy())
 
-    # def getTemperaturaPdf(self):
-    #     dfTemperaturaP= pd.read_csv(File.TEMPERATURAP, sep=',', encoding="utf-8")
-    #     try:
-    #         self.__temperaturaP= dfTemperaturaP[0]
-    #         return self.__temperaturaP
-    #     except:
-    #         print(error)
+    def getTemperaturaPdf(self):
+        dfTemperaturaP= pd.read_csv(str(File.TEMPERATURAP))
+        dfFilter = self.filter(dfTemperaturaP)
+        return (dfFilter.iloc[0:].to_numpy())
 
+    def getVoltageP(self):
+        dfVoltageP = pd.read_csv(str(File.VOLTAGEP))
+        dfFilter = self.filter(dfVoltageP)
+        return (dfFilter.iloc[0:].to_numpy())
 
-# if __name__ == '__main__':
-#     a = dataframe()
-#     a.getAltitudeCdf()
-#     # print(a.getTemperaturaCdf())
-#     # print(serialC.getAltitudeC())
+    def getGiroscopioR(self):
+        dfGiroscopioR= pd.read_csv(str(File.GIROSCOPIOR))
+        dfFilter = self.filter(dfGiroscopioR)
+        return (dfFilter.iloc[0:].to_numpy())
+
+    def getGiroscopioP(self):
+        dfGiroscopioP=  pd.read_csv(str(File.GIROSCOPIOP))
+        dfFilter = self.filter(dfGiroscopioP)
+        return (dfFilter.iloc[0:].to_numpy())
+    
+    def getGiroscopioY(self):
+        dfGiroscopioY= pd.read_csv(str(File.GIROSCOPIOY))
+        dfFilter = self.filter(dfGiroscopioY)
+        return (dfFilter.iloc[0:].to_numpy())
+    
+    def getAcelerometroR(self):
+        dfAcelerometroR= pd.read_csv(str(File.ACELEROMETROR))
+        dfFilter = self.filter(dfAcelerometroR)
+        return (dfFilter.iloc[0:].to_numpy())
+
+    def getAcelerometroP(self):
+        dfAcelerometroP= pd.read_csv(str(File.ACELEROMETROP))
+        dfFilter = self.filter(dfAcelerometroP)
+        return (dfFilter.iloc[0:].to_numpy())
+    
+    def getAcelerometroY(self):
+        dfAcelerometroY= pd.read_csv(str(File.ACELEROMETROY))
+        dfFilter = self.filter(dfAcelerometroY)
+        return (dfFilter.iloc[0:].to_numpy())
+
+    def getMagnetometroR(self):
+        dfMagnetometroR = pd.read_csv(str(File.MAGNETOMETROR))
+        dfFilter = self.filter(dfMagnetometroR)
+        return (dfFilter.iloc[0:].to_numpy())
+
+    def getMagnetometroP(self):
+        dfMagnetometroP = pd.read_csv(str(File.MAGNETOMETROP))
+        dfFilter = self.filter(dfMagnetometroP)
+        return (dfFilter.iloc[0:].to_numpy())
+
+    def getMagnetometroY(self):
+        dfMagnetometroY = pd.read_csv(str(File.MAGNETOMETROY))
+        dfFilter = self.filter(dfMagnetometroY)
+        return (dfFilter.iloc[0:].to_numpy())
+    
+    def getPakageType(self):
+        dfPackageType = pd.read_csv(str(File.PACKAGETYPE))
+        dfFilter = self.filter(dfPackageType)
+        return (dfFilter.iloc[0:].to_numpy())

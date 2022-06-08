@@ -23,6 +23,7 @@ class File(Enum):
     MAGNETOMETROR= 'datasets/csvTransicao/MagnetometroR.csv'
     MAGNETOMETROP= 'datasets/csvTransicao/MagnetometroP.csv'
     MAGNETOMETROY= 'datasets/csvTransicao/MagnetometroY.csv'
+    PACKAGETYPE= 'datasets/csvTransicao/packageType.csv'
 
 
 class SerialC:
@@ -35,7 +36,7 @@ class SerialC:
     def carregaCsv(self, ConectionS):
         print('chamou carrega csv')
         with open(str(File.ALTITUDEC.value), 'w') as arquivoAltitudeC:
-            arquivoAltitudeC = self.unloadVet(arquivoAltitudeC, ConectionS.getTemperaturaC())
+            arquivoAltitudeC = self.unloadVet(arquivoAltitudeC, ConectionS.getAltitudeC())
         with open(str(File.TEMPERATURAC.value), 'w') as arquivoTemperaturaC:
             arquivoTemperaturaC = self.unloadVet(arquivoTemperaturaC, ConectionS.getTemperaturaC())
         with open(str(File.VOLTAGEC.value), 'w') as arquivoVoltageC:
@@ -70,6 +71,8 @@ class SerialC:
             arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
         with open(str(File.MAGNETOMETROY.value),'w') as arquivoMagnetometroY:
             arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
+        with open(str(File.PACKAGETYPE.value), 'w') as arquivoPackageType:
+            arquivoPackageType = self.unloadVet(arquivoPackageType, ConectionS.getPackegeType())
         
         ConectionS.clear()
         
