@@ -1,13 +1,16 @@
 # coding=utf-8
 from tkinter import *
+from tracemalloc import stop
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
-from src.dataframes.index import dataframe
-import main
+from main import Main
 
 class Tela:
     
     def __init__(self):
+        self.renderTela()
+    
+    def renderTela(self):
         # Construção da tela começa aqui
         self.containerMaster = Tk()
         self.containerMaster.geometry("1200x800")
@@ -27,14 +30,14 @@ class Tela:
         self.BotaoStart.configure(pady='0')
         self.BotaoStart.configure(text=''' START ''')
         self.BotaoStart.configure(font=("Times New Roman", 10, "bold"))
-        self.BotaoStart.configure(command= main.Main.setStart(self))
+        self.BotaoStart.configure(command= Main.setStart())
 
         self.BotaoStop = Button(self.containerMaster)
         self.BotaoStop.place(relx=0.09, rely=0.10, height=40, width=100)
         self.BotaoStop.configure(pady='0')
         self.BotaoStop.configure(text=''' STOP and Save ''')
         self.BotaoStop.configure(font=("Times New Roman", 10, "bold"))
-        self.BotaoStop.configure(command= main.Main.setStart(True))
+        self.BotaoStop.configure(command= Main.setStart(self.setEstate()))
 
         self.BotaoSimEnable = Button(self.containerMaster)
         self.BotaoSimEnable.place(relx=0.025, rely=0.20, height=30, width=150)
@@ -171,3 +174,6 @@ class Tela:
         # self.canva = FigureCanvasTkAgg(figura, self.ContainerPlot)
         # self.canva.get_tk_widget().grid(row=0, column=0)
         self.containerMaster.mainloop()
+    def setEstate(self):
+        return True
+Tela()

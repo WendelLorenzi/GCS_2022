@@ -4,6 +4,8 @@ from distutils.log import error
 import serial
 from enum import Enum
 
+from conection import ConectionS
+
 class File(Enum):
     ALTITUDEC = 'datasets/csvTransicao/altitudeC.csv'
     TEMPERATURAC = 'datasets/csvTransicao/TemperaturaC.csv'
@@ -35,49 +37,48 @@ class SerialC:
         
     def carregaCsv(self, ConectionS):
         print('chamou carrega csv')
-        with open(str(File.ALTITUDEC.value), 'w') as arquivoAltitudeC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/altitudeC.csv', 'w') as arquivoAltitudeC:
             arquivoAltitudeC = self.unloadVet(arquivoAltitudeC, ConectionS.getAltitudeC())
-        with open(str(File.TEMPERATURAC.value), 'w') as arquivoTemperaturaC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/TemperaturaC.csv', 'w') as arquivoTemperaturaC:
             arquivoTemperaturaC = self.unloadVet(arquivoTemperaturaC, ConectionS.getTemperaturaC())
-        with open(str(File.VOLTAGEC.value), 'w') as arquivoVoltageC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/VoltageC.csv', 'w') as arquivoVoltageC:
             arquivoVoltageC = self.unloadVet(arquivoVoltageC, ConectionS.getVoltageC())
-        with open(str(File.GPSLATITUDE.value), 'w') as arquivoGpsLatitudeC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/gpsLatitudeC.csv', 'w') as arquivoGpsLatitudeC:
             arquivoGpsLatitudeC = self.unloadVet(arquivoGpsLatitudeC, ConectionS.getGpsLatitudeC())
-        with open(str(File.GPSLONGITUDE.value), 'w') as arquivoGpsLongitudeC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/gpsLongitudeC.csv', 'w') as arquivoGpsLongitudeC:
             arquivoGpsLongitudeC = self.unloadVet(arquivoGpsLongitudeC, ConectionS.getGpsLongitudeC())
-        with open(str(File.GPSALTURAC.value), 'w') as arquivoGpsAlturaC:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/gpsLongitudeC.csv', 'w') as arquivoGpsAlturaC:
             arquivoGpsAlturaC = self.unloadVet(arquivoGpsAlturaC, ConectionS.getGpsAlturaC())
-        with open(str(File.ALTITUDEP.value), 'w') as arquivoAltitudeP:
-            arquivoAltitudeP = self.unloadVet(arquivoAltitudeP, ConectionS.getAltitudeP())
-        with open(str(File.TEMPERATURAP.value), 'w') as arquivoTemperaturaP:
-            arquivoTemperaturaP = self.unloadVet(arquivoTemperaturaP, ConectionS.getTemperaturaP())
-        with open(str(File.VOLTAGEP.value), 'w') as arquivosetVoltageP:
-            arquivosetVoltageP = self.unloadVet(arquivosetVoltageP, ConectionS.getVoltageP())
-        with open(str(File.GIROSCOPIOR.value), 'w') as arquivoGiroscopioR:
-            arquivoGiroscopioR = self.unloadVet(arquivoGiroscopioR, ConectionS.getGiroscopioR())
-        with open(str(File.GIROSCOPIOP.value), 'w') as arquivoGiroscopioP:
-            arquivoGiroscopioP = self.unloadVet(arquivoGiroscopioP, ConectionS.getGiroscopioP())
-        with open(str(File.GIROSCOPIOY.value), 'w') as arquivoGiroscopioY:
-            arquivoGiroscopioY = self.unloadVet(arquivoGiroscopioY, ConectionS.getGiroscopioY())
-        with open(str(File.ACELEROMETROR.value), 'w') as arquivoAcelerometroR:
-            arquivoAcelerometroR = self.unloadVet(arquivoAcelerometroR, ConectionS.getAcelerometroR())
-        with open(str(File.ACELEROMETROP.value), 'w') as arquivoAcelerometroP:
-            arquivoAcelerometroP = self.unloadVet(arquivoAcelerometroP, ConectionS.getAcelerometroP())
-        with open(str(File.ACELEROMETROY.value),'w') as arquivoAcelerometroY:
-            arquivoAcelerometroY = self.unloadVet(arquivoAcelerometroY, ConectionS.getAcelerometroY())
-        with open(str(File.MAGNETOMETROR.value),'w') as arquivoMagnetometroR:
-            arquivoMagnetometroR = self.unloadVet(arquivoMagnetometroR, ConectionS.getMagnetometroR())
-        with open(str(File.MAGNETOMETROP.value),'w') as arquivoMagnetometroP:
-            arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
-        with open(str(File.MAGNETOMETROY.value),'w') as arquivoMagnetometroY:
-            arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
-        with open(str(File.PACKAGETYPE.value), 'w') as arquivoPackageType:
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/packageType.csv', 'w') as arquivoPackageType:
             arquivoPackageType = self.unloadVet(arquivoPackageType, ConectionS.getPackegeType())
-        
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/GpsAlturaC.csv', 'w') as arquivoAltitudeP:
+            arquivoAltitudeP = self.unloadVet(arquivoAltitudeP, ConectionS.getAltitudeP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/TemperaturaP.csv', 'w') as arquivoTemperaturaP:
+            arquivoTemperaturaP = self.unloadVet(arquivoTemperaturaP, ConectionS.getTemperaturaP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/VoltageP.csv', 'w') as arquivosetVoltageP:
+            arquivosetVoltageP = self.unloadVet(arquivosetVoltageP, ConectionS.getVoltageP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/GiroscopioR.csv', 'w') as arquivoGiroscopioR:
+            arquivoGiroscopioR = self.unloadVet(arquivoGiroscopioR, ConectionS.getGiroscopioR())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/GiroscopioP.csv', 'w') as arquivoGiroscopioP:
+            arquivoGiroscopioP = self.unloadVet(arquivoGiroscopioP, ConectionS.getGiroscopioP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/GiroscopioY.csv', 'w') as arquivoGiroscopioY:
+            arquivoGiroscopioY = self.unloadVet(arquivoGiroscopioY, ConectionS.getGiroscopioY())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/AcelerometroR.csv', 'w') as arquivoAcelerometroR:
+            arquivoAcelerometroR = self.unloadVet(arquivoAcelerometroR, ConectionS.getAcelerometroR())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/AcelerometroP.csv', 'w') as arquivoAcelerometroP:
+            arquivoAcelerometroP = self.unloadVet(arquivoAcelerometroP, ConectionS.getAcelerometroP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/AcelerometroY.csv','w') as arquivoAcelerometroY:
+            arquivoAcelerometroY = self.unloadVet(arquivoAcelerometroY, ConectionS.getAcelerometroY())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/MagnetometroR.csv','w') as arquivoMagnetometroR:
+            arquivoMagnetometroR = self.unloadVet(arquivoMagnetometroR, ConectionS.getMagnetometroR())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/MagnetometroP.csv','w') as arquivoMagnetometroP:
+            arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
+        with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/MagnetometroY.csv','w') as arquivoMagnetometroY:
+            arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
+
         ConectionS.clear()
         
     def Captura(self, ConectionS, porta, stop=False):
-        print('chamou captura')
         MSP = serial.Serial(str(porta), 9600, timeout=3)
         try:
             while True:
@@ -88,11 +89,11 @@ class SerialC:
                 dataSplit= data.split(',')
                 print(dataSplit)
                 if (len(dataSplit) > 1 & stop != True):
-                    ConectionS.setPackagetType(dataSplit[3])
                     if (dataSplit[3] == "c"):
                         ConectionS.setAltitudeC(dataSplit[0])
                         ConectionS.setTemperaturaC(dataSplit[1])
                         ConectionS.setVoltageC(dataSplit[2])
+                        ConectionS.setPackagetType(dataSplit[3])
                         ConectionS.setGpsLatitudeC(dataSplit[4])
                         ConectionS.setGpsLongitudeC(dataSplit[5])
                         ConectionS.setGpsAlturaC(dataSplit[6])
@@ -100,6 +101,7 @@ class SerialC:
                         ConectionS.setAltitudeC(dataSplit[0])
                         ConectionS.setTemperaturaC(dataSplit[1])
                         ConectionS.setVoltageC(dataSplit[2])
+                        ConectionS.setPackagetType(dataSplit[3])
                         ConectionS.setGpsLatitudeC(dataSplit[4])
                         ConectionS.setGpsLongitudeC(dataSplit[5])
                         ConectionS.setGpsAlturaC(dataSplit[6])
@@ -116,9 +118,11 @@ class SerialC:
                         ConectionS.setMagnetometroP(dataSplit[17])
                         ConectionS.setMagnetometroY(dataSplit[18])
                 else:
+                    MSP.close()
                     self.carregaCsv(ConectionS)
         except:
-            print(error)
-        finally:
-            MSP.close()
             self.carregaCsv(ConectionS)
+            
+SerialC().Captura(ConectionS(), '/dev/ttyACM0')
+            
+
