@@ -2,31 +2,7 @@
 import csv
 from distutils.log import error
 import serial
-from enum import Enum
-
 from conection import ConectionS
-
-class File(Enum):
-    ALTITUDEC = 'datasets/csvTransicao/altitudeC.csv'
-    TEMPERATURAC = 'datasets/csvTransicao/TemperaturaC.csv'
-    VOLTAGEC= 'datasets/csvTransicao/VoltageC.csv'
-    GPSLATITUDE= 'datasets/csvTransicao/gpsLatitudeC.csv'
-    GPSLONGITUDE= 'datasets/csvTransicao/gpsLongitudeC.csv'
-    GPSALTURAC= 'datasets/csvTransicao/GpsAlturaC.csv'
-    ALTITUDEP= 'datasets/csvTransicao/AltitudeP.csv'
-    TEMPERATURAP= 'datasets/csvTransicao/TemperaturaP.csv'
-    VOLTAGEP= 'datasets/csvTransicao/VoltageP.csv'
-    GIROSCOPIOR= 'datasets/csvTransicao/GiroscopioR.csv'
-    GIROSCOPIOP= 'datasets/csvTransicao/GiroscopioP.csv'
-    GIROSCOPIOY= 'datasets/csvTransicao/GiroscopioY.csv'
-    ACELEROMETROR= 'datasets/csvTransicao/AcelerometroR.csv'
-    ACELEROMETROP= 'datasets/csvTransicao/AcelerometroP.csv'
-    ACELEROMETROY= 'datasets/csvTransicao/AcelerometroY.csv'
-    MAGNETOMETROR= 'datasets/csvTransicao/MagnetometroR.csv'
-    MAGNETOMETROP= 'datasets/csvTransicao/MagnetometroP.csv'
-    MAGNETOMETROY= 'datasets/csvTransicao/MagnetometroY.csv'
-    PACKAGETYPE= 'datasets/csvTransicao/packageType.csv'
-
 
 class SerialC:
     def unloadVet(self, arquivo, ConectionS):
@@ -34,6 +10,8 @@ class SerialC:
         for value in range(len(ConectionS)):
             arquivo.writerow([ConectionS[value]])
         return arquivo
+    
+
         
     def carregaCsv(self, ConectionS):
         print('chamou carrega csv')
@@ -75,8 +53,10 @@ class SerialC:
             arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
         with open('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/csvTransicao/MagnetometroY.csv','w') as arquivoMagnetometroY:
             arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
-
+            
         ConectionS.clear()
+
+            
         
     def Captura(self, ConectionS, porta, stop=False):
         MSP = serial.Serial(str(porta), 9600, timeout=3)
@@ -86,7 +66,7 @@ class SerialC:
                 MSP.flushInput()
 
                 data = MSP.readline().decode()
-                dataSplit= data.split(',')
+                dataSplit = data.split(',')
                 print(dataSplit)
                 if (len(dataSplit) > 1 & stop != True):
                     if (dataSplit[3] == "c"):
