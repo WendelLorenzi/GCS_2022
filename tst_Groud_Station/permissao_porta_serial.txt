@@ -1,3 +1,2 @@
 sudo chmod a+rw /dev/ttyACM0
 
-serial.Serial('com3', 115200)
