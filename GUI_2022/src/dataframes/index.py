@@ -12,7 +12,8 @@ class dataframe:
     def unifyData(self):
         dfC = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_C.csv', skiprows=1)
         dfT = pd.read_csv('/home/wendel/Área de trabalho/LtSat/GCS_2022/GUI_2022/datasets/flight_1038_T.csv', skiprows=1)
-        dfC['TEMP'] = self.getTemperaturaCdf()
+        dfC['TEMP'] = float(self.getTemperaturaCdf())
+        print('passou float')
         dfC['VOLTAGE'] = self.getVoltageCdf()
         dfC['GPS_LATITUDE'] = self.getAltitudeCdf()
         dfC['GPS_LONGITUDE'] = self.getGpsLongitudeCdf()
@@ -32,8 +33,8 @@ class dataframe:
         dfT['MAG_Y'] = self.getMagnetometroY()
         dfT['PACKET_TYPE'] = self.getPakageType()
         dfC['PACKET_TYPE'] = self.getPakageType()
-        dfT['PACKET_COUNT'].set_index('PACKET_TYPE') 
-        dfC['PACKET_COUNT'].set_index('PACKET_TYPE')
+        # dfT['PACKET_COUNT'].set_index('PACKET_TYPE') 
+        # dfC['PACKET_COUNT'].set_index('PACKET_TYPE')
 
     def getAltitudeCdf(self):
         dfAltitudeC = pd.read_csv(str(File.ALTITUDEC))

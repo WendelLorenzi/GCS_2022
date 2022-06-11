@@ -176,4 +176,3 @@ class Tela:
         self.containerMaster.mainloop()
     def setEstate(self):
         return True
-Tela()
