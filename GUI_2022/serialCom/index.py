@@ -18,37 +18,37 @@ class SerialC:
             arquivoTemperaturaC = self.unloadVet(arquivoTemperaturaC, ConectionS.getTemperaturaC())
         with open('datasets\csvTransicao\VoltageC.csv', 'w') as arquivoVoltageC:
             arquivoVoltageC = self.unloadVet(arquivoVoltageC, ConectionS.getVoltageC())
-        with open('datasets\txtTransicao\gpsLatitudeC.csv', 'w') as arquivoGpsLatitudeC:
+        with open('datasets\csvTransicao\gpsLatitudeC.csv', 'w') as arquivoGpsLatitudeC:
             arquivoGpsLatitudeC = self.unloadVet(arquivoGpsLatitudeC, ConectionS.getGpsLatitudeC())
-        with open('datasets\txtTransicao\gpsLongitudeC.csv', 'w') as arquivoGpsLongitudeC:
+        with open('datasets\csvTransicao\gpsLongitudeC.csv', 'w') as arquivoGpsLongitudeC:
             arquivoGpsLongitudeC = self.unloadVet(arquivoGpsLongitudeC, ConectionS.getGpsLongitudeC())
-        with open('datasets\txtTransicao\GpsAlturaC.csv', 'w') as arquivoGpsAlturaC:
+        with open('datasets\csvTransicao\GpsAlturaC.csv', 'w') as arquivoGpsAlturaC:
             arquivoGpsAlturaC = self.unloadVet(arquivoGpsAlturaC, ConectionS.getGpsAlturaC())
-        with open('datasets\txtTransicao\Counter.csv', 'w') as arquivoPackageType:
+        with open('datasets\csvTransicao\Counter.csv', 'w') as arquivoPackageType:
             arquivoPackageType = self.unloadVet(arquivoPackageType, ConectionS.getPackegeType())
-        with open('datasets\txtTransicao\AltitudeP.csv', 'w') as arquivoAltitudeP:
+        with open('datasets\csvTransicao\AltitudeP.csv', 'w') as arquivoAltitudeP:
             arquivoAltitudeP = self.unloadVet(arquivoAltitudeP, ConectionS.getAltitudeP())
-        with open('datasets\txtTransicao\TemperaturaP.csv', 'w') as arquivoTemperaturaP:
+        with open('datasets\csvTransicao\TemperaturaP.csv', 'w') as arquivoTemperaturaP:
             arquivoTemperaturaP = self.unloadVet(arquivoTemperaturaP, ConectionS.getTemperaturaP())
-        with open('datasets\txtTransicao\VoltageP.csv', 'w') as arquivosetVoltageP:
+        with open('datasets\csvTransicao\VoltageP.csv', 'w') as arquivosetVoltageP:
             arquivosetVoltageP = self.unloadVet(arquivosetVoltageP, ConectionS.getVoltageP())
-        with open('datasets\txtTransicao\GiroscopioR.csv', 'w') as arquivoGiroscopioR:
+        with open('datasets\csvTransicao\GiroscopioR.csv', 'w') as arquivoGiroscopioR:
             arquivoGiroscopioR = self.unloadVet(arquivoGiroscopioR, ConectionS.getGiroscopioR())
-        with open('datasets\txtTransicao\GiroscopioP.csv', 'w') as arquivoGiroscopioP:
+        with open('datasets\csvTransicao\GiroscopioP.csv', 'w') as arquivoGiroscopioP:
             arquivoGiroscopioP = self.unloadVet(arquivoGiroscopioP, ConectionS.getGiroscopioP())
-        with open('datasets\txtTransicao\GiroscopioY.csv', 'w') as arquivoGiroscopioY:
+        with open('datasets\csvTransicao\GiroscopioY.csv', 'w') as arquivoGiroscopioY:
             arquivoGiroscopioY = self.unloadVet(arquivoGiroscopioY, ConectionS.getGiroscopioY())
-        with open('datasets\txtTransicao\AcelerometroR.csv', 'w') as arquivoAcelerometroR:
+        with open('datasets\csvTransicao\AcelerometroR.csv', 'w') as arquivoAcelerometroR:
             arquivoAcelerometroR = self.unloadVet(arquivoAcelerometroR, ConectionS.getAcelerometroR())
-        with open('datasets\txtTransicao\AcelerometroP.csv', 'w') as arquivoAcelerometroP:
+        with open('datasets\csvTransicao\AcelerometroP.csv', 'w') as arquivoAcelerometroP:
             arquivoAcelerometroP = self.unloadVet(arquivoAcelerometroP, ConectionS.getAcelerometroP())
-        with open('datasets\txtTransicao\AcelerometroY.csv','w') as arquivoAcelerometroY:
+        with open('datasets\csvTransicao\AcelerometroY.csv','w') as arquivoAcelerometroY:
             arquivoAcelerometroY = self.unloadVet(arquivoAcelerometroY, ConectionS.getAcelerometroY())
-        with open('datasets\txtTransicao\MagnetometroR.csv','w') as arquivoMagnetometroR:
+        with open('datasets\csvTransicao\MagnetometroR.csv','w') as arquivoMagnetometroR:
             arquivoMagnetometroR = self.unloadVet(arquivoMagnetometroR, ConectionS.getMagnetometroR())
-        with open('datasets\txtTransicao\MagnetometroP.csv','w') as arquivoMagnetometroP:
+        with open('datasets\csvTransicao\MagnetometroP.csv','w') as arquivoMagnetometroP:
             arquivoMagnetometroP = self.unloadVet(arquivoMagnetometroP, ConectionS.getMagnetometroP())
-        with open('datasets\txtTransicao\MagnetometroY.csv','w') as arquivoMagnetometroY:
+        with open('datasets\csvTransicao\MagnetometroY.csv','w') as arquivoMagnetometroY:
             arquivoMagnetometroY = self.unloadVet(arquivoMagnetometroY, ConectionS.getMagnetometroY())
             
         ConectionS.clear()
