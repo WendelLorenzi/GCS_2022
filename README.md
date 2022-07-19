@@ -14,14 +14,16 @@
 - O container deve transmitir a sua telemetria a 1Hz no formato descrito pela competição.
 - O contanier deve sondar a telemetria da carga util e a retransmitir a uma velocidade de 4Hz no formato descrito pela competição.
 
--- ![fluxo](https://user-images.githubusercontent.com/38894557/179635287-91cc6647-469d-4c02-9580-1fca17d0d5de.png)
+![fluxo](https://user-images.githubusercontent.com/38894557/179635287-91cc6647-469d-4c02-9580-1fca17d0d5de.png)
 
 ##### Sensores que compoem a telemetria: 
 - Temperatura, Gps, Giroscopio, Acelerometro, Magnetometro
+
 ![arquitetura-embarcado](https://user-images.githubusercontent.com/38894557/179634854-79174437-40c6-4f5e-8747-4d69fad71783.png)
 
+##### LISTA DE ATRIBUTOS E POSIÇÃO NO VETOR SERIAL (USB cable)
+![diagramGCS](https://user-images.githubusercontent.com/38894557/179637028-00efed0d-e3ab-44a7-b615-65ec8456e111.png)
 
-##### LISTA DE ATRIBUTOS E POSIÇÃO NO VETOR SERIAL  
 Posição   | Atributo
 --------- | ------
  0 | Altitude Container
