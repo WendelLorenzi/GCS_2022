@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ltsat-gcs"
+version = "2.0.0.dev0"
+description = "Ground Control Station da equipe LtSat (Team 1038) - CanSat Competition 2022"
+requires-python = ">=3.10"
+dependencies = [
+    "pyserial>=3.5",
+    "paho-mqtt>=2.0",
+    "PySide6>=6.6",
+    "pyqtgraph>=0.13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+ltsat-gcs = "gcs.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
